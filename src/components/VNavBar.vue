@@ -2,43 +2,7 @@
   <v-app-bar app class="bg-primary">
      <img src="../assets/img/verduras.png" width="30" height="30" alt="Logo" class="mx-4"/>
      <v-spacer></v-spacer>
-     <v-menu bottom>
-          <template v-slot:activator="{on: menu}">
-              <v-tooltip bottom>
-                  <template v-slot:activator="{on: tooltip}">
-                      <v-btn v-on="{...tooltip, ...menu}" class="bg-white" icon>
-                          <v-icon>mdi-person</v-icon>
-                      </v-btn>
-                  </template>
-                  <span>Ver perfil</span>
-              </v-tooltip>
-          </template>
-          <v-list shaped>
-              <v-list-item>
-                  <v-icon>mdi-account</v-icon>
-                  <v-list-item-content>
-                      <v-list-item-title>
-                          <router-link
-                             >
-                              {{ "Daniel Contreras" }}
-                          </router-link>
-                      </v-list-item-title>
-                  </v-list-item-content>
-              </v-list-item>
-              <v-divider></v-divider>
-              <v-list-item>
-                  <v-list-item-icon>
-                      <v-icon>mdi-logout</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                      <v-list-item-title>
-                          Cerrar sesión
-                      </v-list-item-title>
-                  </v-list-item-content>
-              </v-list-item>
-          </v-list>
-     </v-menu>
-
+    
    </v-app-bar>
    <v-navigation-drawer
       v-if="this.$vuetify.display.xs"
