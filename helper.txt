@@ -1,0 +1,341 @@
+//Alerta todo ok
+this.$store.dispatch("alerts/setDialog", {
+        color:  "success",
+        icon:   "mdi-check-circle-outline",
+        title:  "Carga masiva exitosa",
+        msg:    "La carga masiva se ha completado correctamente",
+        type: 0,
+});
+
+
+logica para sublista
+
+<template>
+  <v-list density="compact" nav>
+    <v-list-item
+      v-for="(item, index) in navigationItems"
+      :key="index"
+      :title="item.text"
+    >
+      {{ item.text }}
+      <v-list-item-group v-if="item.subItems">
+        <v-list-item
+          v-for="(subItem, subIndex) in item.subItems"
+          :key="subIndex"
+          @click="navigateTo(subItem.route)"
+          :prepend-icon="subItem.icon"
+          :title="subItem.text"
+        >
+          {{ subItem.text }}
+        </v-list-item>
+      </v-list-item-group>
+    </v-list-item>
+  </v-list>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      rail: false,
+      navigationItems: [
+        {
+          text: "Adminitrador",
+          icon: "mdi-account",
+          route: "/inicio",
+          subItems: [
+            { text: "Subitem 1", icon: "mdi-subitem", route: "/subitem1" },
+            { text: "Subitem 2", icon: "mdi-subitem", route: "/subitem2" },
+          ],
+        },
+        { text: "Clientes", icon: "mdi-account", route: "/clientes" },
+        { text: "Punto de venta", icon: "mdi-point-of-sale", route: "/punto-de-venta" },
+        { text: "Ventas", icon: "mdi-chart-arc", route: "/ventas" },
+        { text: "Calculadora rápida", icon: "mdi-calculator", route: "/calculadora" },
+        { text: "Reportes", icon: "mdi-file", route: "/reportes" },
+      ],
+    };
+  },
+  methods: {
+    navigateTo(route) {
+      // Implement your navigation logic here
+      console.log("Navigating to", route);
+    },
+  },
+};
+</script>
+
+card
+
+ <v-card>
+                    <v-card-title class="primary white--text pb-1 pt-1">
+                        <v-col cols="12" sm="12" md="7" lg="9">
+                            <h4>
+                                Cuentas bancarias
+                            </h4>
+                        </v-col>
+                        <v-col cols="12" sm="12" md="5" lg="3">
+                            <v-btn
+                                rounded
+                                class="rounded-lg primary--text mx-lg-1 text-lg-right text-md-center text-sm-center text-center p-1"
+                                depressed
+                                block
+                                color="white"
+                                @click="dialogCard = true">
+                                Agregar nueva cuenta
+                            </v-btn>
+                        </v-col>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-data-table mobile-breakpoint="820" :headers="accountsFields" :items="accounts" :items-per-page="25">
+                                <template v-slot:item.movements="{ item }" class="text-xs-center">
+                                    <v-tooltip bottom>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn depressed 
+                                                    fab 
+                                                    small 
+                                                    class="rounded-lg" 
+                                                    color="primary" 
+                                                    v-bind="attrs" 
+                                                    v-on="on" 
+                                                    @click="openModalDetails(item.id)" 
+                                                    ><v-icon >mdi-eye</v-icon></v-btn>
+                                        </template>
+                                        <span>Ver movimientos</span>
+                                    </v-tooltip>
+                                </template>
+                                <template v-slot:item.clabe="{ item }" class="text-xs-center">
+                                    <div v-if="item.clabe == null"> - </div>
+                                    <div v-else @click=" openStatsModal = true, statsId = item.id"><span class="the_pointer"><b>{{ item.clabe }}</b></span></div>
+                                </template>
+                                <template v-slot:item.bank="{ item }" class="text-xs-center">
+                                    <div v-if="item.bank == null"> - </div>
+                                    <div v-else>{{ item.bank }}</div>
+                                </template>
+                                <template v-slot:item.account_type="{ item }" class="text-xs-center">
+                                    <div v-if="item.account_type == null"> - </div>
+                                    <div v-else>{{ item.account_type }}</div>
+                                </template>
+                                <template v-slot:item.owner="{ item }" class="text-xs-center">
+                                    <div v-if="item.owner == null"> - </div>
+                                    <div v-else>{{ item.owner }}</div>
+                                </template>
+                                <template v-slot:item.initial_credit="{ item }" class="text-xs-center">
+                                    <div v-if="item.initial_credit == null"> - </div>
+                                    <div v-else>{{ item.initial_credit | currency }}</div>
+                                </template>
+                                <template v-slot:item.selectedAccount="{ item }" class="text-xs-center">
+                                    <div v-if="selectedAccount != item.id"> - </div>
+                                    <div v-if="selectedAccount == item.id">
+                                        <v-icon color="success">mdi-checkbox-marked-circle</v-icon>
+                                    </div>
+                                </template>
+                                <template v-slot:item.actions="{ item }" class="text-xs-right">
+                                    <v-row >
+                                        <v-col cols="12">
+                                            <v-tooltip bottom>
+                                                <template v-slot:activator="{ on, attrs }">
+                                                    <v-btn depressed 
+                                                        v-if="item.clabe == 'Caja chica' && item.bank == 'Caja chica'"
+                                                        fab 
+                                                        small 
+                                                        class="rounded-lg" 
+                                                        color="yellow darken-1"
+                                                        v-bind="attrs" 
+                                                        v-on="on" 
+                                                        @click="account_id = item.id,  openModalMoney('r')"
+                                                    >
+                                                        <v-icon>mdi-arrow-down-bold</v-icon>
+                                                    </v-btn>
+                                                </template>
+                                                <span>Retirar</span>
+                                            </v-tooltip>
+                                            <v-tooltip bottom>
+                                                <template v-slot:activator="{ on, attrs }">
+                                                    <v-btn depressed 
+                                                        v-if="item.clabe == 'Caja chica' && item.bank == 'Caja chica'"
+                                                        fab 
+                                                        small 
+                                                        class="rounded-lg" 
+                                                        color="success"
+                                                        v-bind="attrs" 
+                                                        v-on="on" 
+                                                        @click="account_id = item.id, openModalMoney('i')"
+                                                    >
+                                                        <v-icon>mdi-arrow-up-bold</v-icon>
+                                                    </v-btn>
+                                                </template>
+                                                <span>Ingresar</span>
+                                            </v-tooltip>
+                                            <v-menu offset-y  v-if="item.clabe != 'Caja chica' && item.bank != 'Caja chica'">
+                                                <template v-slot:activator="{on, attrs}">
+                                                    <v-btn
+                                                        class="rounded-lg"
+                                                        v-bind="attrs"
+                                                        v-on="on"
+                                                        color="white"
+                                                        block>
+                                                        <v-icon left>mdi-menu</v-icon>
+                                                        Opciones
+                                                    </v-btn>
+                                                </template>
+                                                <v-list>
+                                                    <v-list-item @click="openModalEdit(item.id)">
+                                                        <v-list-item-title>
+                                                            <v-icon left>mdi-pencil</v-icon>
+                                                            Editar
+                                                        </v-list-item-title>
+                                                    </v-list-item>
+                                                    <v-list-item  @click="openModalDelete(item.id)">
+                                                        <v-list-item-title>
+                                                            <v-icon left>mdi-delete</v-icon>
+                                                            Eliminar
+                                                        </v-list-item-title>
+                                                    </v-list-item>
+                                                     <v-list-item  @click="account_id = item.id, openModalMoney('i')">
+                                                        <v-list-item-title>
+                                                            <v-icon left>mdi-arrow-up-bold</v-icon>
+                                                            Ingresar
+                                                        </v-list-item-title>
+                                                    </v-list-item>
+                                                     <v-list-item @click="account_id = item.id,  openModalMoney('r')">
+                                                        <v-list-item-title>
+                                                            <v-icon left>mdi-arrow-down-bold</v-icon>
+                                                            Retirar
+                                                        </v-list-item-title>
+                                                    </v-list-item>
+                                                </v-list>
+                                            </v-menu>
+
+                                        </v-col>
+                                    </v-row>
+                                </template>
+                        </v-data-table>
+                    </v-card-text>
+                </v-card>
+
+
+datepicker
+
+
+<v-col cols="12" sm="6">
+      <v-dialog
+          ref="dialog"
+          v-model="modal"
+          :return-value.sync="date"
+          persistent
+          width="290px"
+      >
+      <template
+          v-slot:activator="{on, attrs}"
+      >
+          <v-text-field
+              outlined
+              v-model="date"
+              label="Desde"
+              prepend-inner-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+          ></v-text-field>
+      </template>
+        <v-date-picker
+            v-model="date"
+            scrollable
+            :max="date2"
+        >
+            <v-spacer></v-spacer>
+            <v-btn
+                text
+                color="primary"
+                @click="modal = false"
+            >
+                Cerrar
+            </v-btn>
+            <v-btn
+                text
+                color="primary"
+                @click="
+                    $refs.dialog.save(date)
+                "
+            >
+                Aceptar
+            </v-btn>
+        </v-date-picker>
+    </v-dialog>
+</v-col>
+
+
+<v-menu bottom>
+          <template v-slot:activator="{on: menu}">
+              <v-tooltip bottom>
+                  <template v-slot:activator="{on: tooltip}">
+                      <v-btn v-on="{...tooltip, ...menu}" dark icon>
+                          <v-icon>person</v-icon>
+                      </v-btn>
+                  </template>
+                  <span>Ver perfil</span>
+              </v-tooltip>
+          </template>
+          <v-list shaped>
+              <v-list-item>
+                  <v-list-item-avatar color="primary" class="white--text">
+                      <router-link
+                          to="/perfil"
+                          class="text-decoration-none white--text"
+                          >{{
+                              name.slice(0, 1).toUpperCase()
+                          }}</router-link
+                      >
+                  </v-list-item-avatar>
+                  <v-list-item-content>
+                      <v-list-item-title>
+                          <router-link
+                              to="/perfil"
+                              class="text-decoration-none">
+                              {{ name }}
+                          </router-link>
+                      </v-list-item-title>
+                  </v-list-item-content>
+              </v-list-item>
+              <v-divider></v-divider>
+              <v-list-item @click="logOut()">
+                  <v-list-item-icon>
+                      <v-icon>mdi-logout</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                      <v-list-item-title>
+                          Cerrar sesión
+                      </v-list-item-title>
+                  </v-list-item-content>
+              </v-list-item>
+          </v-list>
+     </v-menu>
+
+
+
+     <template>
+  <div class="text-center">
+    <v-menu
+      open-on-hover
+    >
+      <template v-slot:activator="{ props }">
+        <v-btn
+          color="primary"
+          v-bind="props"
+        >
+          Dropdown
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+  </div>
+</template>
