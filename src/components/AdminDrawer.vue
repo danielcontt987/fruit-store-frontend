@@ -4,7 +4,7 @@
       <v-toolbar-title><b>Fruteria del puerto</b></v-toolbar-title>
     </v-app-bar>
     <v-navigation-drawer
-        class="bg-primary"
+        class="bg-black"
         v-model="drawer"
         :rail="rail"
         permanent
@@ -32,22 +32,41 @@
                   :color="rail ? 'text-primary' 
                   : (isCurrentRoute(item.route) ?
                   'white' : 
-                  'text-primary')" 
-                  class="text-primary mr-5"
+                  'text-white')" 
+                  class="text-white mr-5"
           >
             {{ item.icon }}
           </v-icon>
           <span v-if="!rail" :title="item.text" :class="rail ? 'text-primary' 
                   : (isCurrentRoute(item.route) ?
                   'white' : 
-                  'text-primary')" class="font-weight-bold">{{ item.text }}</span>
+                  'text-white')">{{ item.text }}</span>
         </v-list-item>
-        <v-list-item class="text-primary" prepend-icon="mdi-arrow-collapse" v-if="rail == false" @click.stop="rail = !rail" title="Contraer"></v-list-item>
-        <v-list-item prepend-icon="mdi-arrow-expand" v-else @click.stop="rail = !rail"></v-list-item>
+        <v-list-item class="text-primary" 
+        v-if="rail == false" 
+        @click.stop="rail = !rail" 
+        title="Contraer">
+        <v-icon
+             class="text-white mr-5"    
+          >
+          mdi-arrow-collapse
+          </v-icon>
+          <span class="text-white">
+            Contraer
+          </span>
+      </v-list-item>
+        <v-list-item class="text-white" prepend-icon="mdi-arrow-expand" v-else @click.stop="rail = !rail">
+          <v-icon
+             class="text-white"    
+          >
+            mdi-arrow-expand
+          </v-icon>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-main class="bg-background">
       <router-view />
+      <slot></slot>
     </v-main>
   </template>
   
@@ -81,6 +100,7 @@
     computed: {
       ...mapState({
         token: (state) => state.login.token,
+        userId: (state) => state.login.userId,
       }),
       currentRoute() {
       return this.$route.path; // Obtiene la ruta actual de Vue Router

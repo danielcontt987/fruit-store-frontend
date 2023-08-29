@@ -106,6 +106,7 @@ export default{
             this.$store.dispatch('login/loginUser', params)
                 .then((res) =>{
                     localStorage.setItem('authToken', res.data.token);
+                    localStorage.setItem('userId', res.data.user.id);
                     this.$router.push({
                         name: 'Admin'
                     });

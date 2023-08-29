@@ -26,6 +26,7 @@ export default {
   computed: {
     ...mapState({
       token: (state) => state.login.token,
+      userId: (state) => state.login.userId,
     }),
   },
 };

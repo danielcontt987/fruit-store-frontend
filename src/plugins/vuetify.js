@@ -26,6 +26,7 @@ export default createVuetify({
           white: '#FFFFFF',
           grey: "#A2A2A2",
           black: '#000000',
+          success: '#27AE60'
         },
       },
     },

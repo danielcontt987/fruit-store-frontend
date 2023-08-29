@@ -2,74 +2,71 @@
   <v-app class="bg-background">
     <admin-drawer>
         <v-container>
-          <v-card class="rounded-lg">
-              <v-card-title class="bg-primary">
-                      <v-row class="mx-3 mt-0 mb-0">
-                        <v-col cols="12" sm="7" md="7" lg="9">
-                              <h4>
-                                  Clientes
-                              </h4>
-                        </v-col>
-                        <v-col cols="12" sm="5" md="5" lg="3">
-                            <v-btn
-                                rounded
-                                class="rounded-lg text-primary mx-lg-1 text-lg-right text-md-center text-sm-center text-center p-1"
-                                depressed
-                                block
-                                color="white"
-                                @click="dialogCard = true">
-                                Agregar nuevo cliente
-                            </v-btn>
-                        </v-col>
-                      </v-row>
-              </v-card-title>
-              <v-card-text>
-                <v-row>
-                    <v-col cols="12">
-                        <v-text-field
-                        label="Buscar"
-                        variant="outlined"
-                        class="mt-5"
-                        clearable
-                        />
-                    </v-col>
-                    <v-col cols="12" sm="6">
-                      <v-text-field
-                        label="Buscar"
-                        variant="outlined"
-                        class="mt-5"
-                        clearable
-                        type="date"
-                        />
-                    </v-col>
-                 </v-row>
-              </v-card-text>
-          </v-card>
+          <v-row>
+             <v-col cols="12">
+               <card-client :token="token" :userId="userId" :clients="clients" :listClient="listClient"/>
+             </v-col>
+          </v-row>
         </v-container>
     </admin-drawer>
   </v-app>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import AdminDrawer from "@/components/AdminDrawer.vue";
-
+import CardClient from "@/components/CardClient.vue";
 
 export default {
   name:"Client",
   components:{
-    AdminDrawer: AdminDrawer
+    AdminDrawer,
+    CardClient,
   },
   mounted(){
+    if (this.token == null) {
+      this.$router.push({
+        name: "Login",
+      });
+    }
 
+    this.listClient();
   },
 
   data: () => ({
     currentDate: new Date(),
-  })
+    search: "",
+    date: "",
+    date2: "",
+    itemsPerPage: 5,
+       
+  }),
+
+  methods:{
+    listClient(){
+      let params = {
+          id: this.userId
+      }
+      this.$store.dispatch('clients/listClient', params, this.token);
+    },
+  },
+  
+  computed:{
+    ...mapState({
+      token: (state) => state.login.token,
+      userId: (state) => state.login.userId,
+      clients: (state) => state.clients.clients,
+      boldHeaderClass() {
+        return 'font-weight-bold';
+      },
+    }),
+  }
 
 }
 </script>
 
-<style>
-
+<style scoped>
+.v-data-table-header__content {
+  font-weight: bold;
+}
 </style>
