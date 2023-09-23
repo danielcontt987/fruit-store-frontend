@@ -18,15 +18,20 @@ export default createVuetify({
     themes: {
       light: {
         colors: {
-          primary: '#000030',
+          primary: '#001f4a',
+          primary_dark: '#051942',
           fail: '#F50057',
           secondary: '#00337C',
-          secondary_dark: '#001F4A',
-          background: '#E6E6E6',
+          secondary_dark: '#001f4a',
+          background: '#E2E2E2',
           white: '#FFFFFF',
           grey: "#A2A2A2",
           black: '#000000',
-          success: '#27AE60'
+          drawerColor: "#1744a5",
+          success: '#27AE60',
+          accent: "#00CFB5",
+          error: "#C22F2F",
+          success_card: '#27AE60',
         },
       },
     },

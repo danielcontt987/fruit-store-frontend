@@ -8,16 +8,82 @@
   <title>Frutería</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,700;0,800;1,100;1,200;1,300;1,400;1,700&family=Roboto:wght@100&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
   <style>
-      body {
-        font-family: 'Montserrat', 'Roboto', sans-serif;
+    body {
+      font-family: 'Montserrat', 'Roboto', sans-serif;
+    }
+
+    #loading-wrapper {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background: rgb(16, 0, 50);
+    }
+
+    #loading-text {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      color: rgb(255, 255, 255);
+      width: 100px;
+      height: 30px;
+      margin: -7px 0 0 -45px;
+      text-align: center;
+      font-family: 'PT Sans Narrow', sans-serif;
+      font-size: 20px;
+    }
+
+    #loading-content {
+      display: block;
+      position: relative;
+      left: 50%;
+      top: 50%;
+      width: 170px;
+      height: 170px;
+      margin: -85px 0 0 -85px;
+      border: 3px solid rgb(0, 0, 0);
+    }
+
+    #loading-content {
+      border: 3px solid transparent;
+      border-top-color: rgb(255, 255, 255);
+      border-bottom-color: rgb(255, 255, 255);
+      border-radius: 50%;
+      -webkit-animation: loader 2s linear infinite;
+      -moz-animation: loader 2s linear infinite;
+      -o-animation: loader 2s linear infinite;
+      animation: loader 2s linear infinite;
+    }
+
+    @keyframes loader {
+      0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
       }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <div id="loading-wrapper">
+      <div id="loading-text">Cargando</div>
+      <div id="loading-content"></div>
+    </div>
+  </div>
   <script type="module" src="/src/main.js"></script>
 </body>
 

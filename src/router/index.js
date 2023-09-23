@@ -18,6 +18,11 @@ const routes = [
     component: () => import('@/views/AdminView.vue'),
   },
   {
+    path: '/punto-de-venta',
+    name: 'PointOfSale',
+    component: () => import('@/views/PointOfSale.vue'),
+  },
+  {
     path: '/clientes',
     name: 'Client',
     component: () => import('@/views/ClientView.vue'),

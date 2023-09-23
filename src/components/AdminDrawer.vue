@@ -4,7 +4,7 @@
       <v-toolbar-title><b>Fruteria del puerto</b></v-toolbar-title>
     </v-app-bar>
     <v-navigation-drawer
-        class="bg-black"
+        class="bg-white"
         v-model="drawer"
         :rail="rail"
         permanent
