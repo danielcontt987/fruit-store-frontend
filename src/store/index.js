@@ -3,6 +3,7 @@ import login from './login';
 import alerts from './alerts';
 import menu from './menu';
 import clients from './clients';
+import pointsales from './pointsales';
 
 
 export default createStore({
@@ -10,6 +11,7 @@ export default createStore({
     login,
     alerts,
     menu,
-    clients
+    clients,
+    pointsales,
   }
 })

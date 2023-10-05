@@ -12,57 +12,45 @@
                 <h4 class="text-primary_dark">Monto generado:</h4>
             </v-col>
         </v-row>
-        <v-row class="mt-7">
+        <v-row>
             <v-col cols="6">
-                <v-select flat label="Almacén" variant="solo-inverted" />
+                <v-select flat label="Almacén" variant="solo-inverted"/>
             </v-col>
             <v-col cols="6">
                 <v-select flat label="Área" variant="solo-inverted" />
             </v-col>
-            <v-col cols="4">
+            <v-col cols="4" class="py-0">
                 <v-select flat label="Clientes" variant="solo-inverted" />
             </v-col>
-            <v-col cols="8">
-                <v-select flat label="Productos" variant="solo-inverted" />
+            <v-col cols="8" class="py-0">
+                <product-select/>
             </v-col>
         </v-row>
-        <v-data-table flat :headers="headers" item-value="name" no-data-text="Aún no hay productos"
-            :hide-details="false"></v-data-table>
+        <v-row>
+            <v-col cols="12">
+                <v-data-table flat :headers="headers" item-value="name" no-data-text="Aún no hay productos"
+                    :hide-details="false"></v-data-table>
+            </v-col>
+        </v-row>
         <v-row class="mt-2">
             <v-col cols="12" md="7" lg="8">
                 <v-row>
                     <v-col cols="6" class="pb-0">
-                        <card-grid
-                            color="grey"
-                            icon="mdi mdi-percent"
-                            text="Aplicar descuento"
-                         />
+                        <card-grid color="grey" icon="mdi mdi-percent" text="Aplicar descuento" />
                     </v-col>
                     <v-col cols="6" class="pb-0">
-                        <card-grid
-                            color="fail"
-                            icon="mdi-close"
-                            text="Cancelar venta"
-                            />
+                        <card-grid color="fail" icon="mdi-close" text="Cancelar venta" />
                     </v-col>
                     <v-col cols="6">
-                        <card-grid
-                            color="accent"
-                            icon="mdi-more"
-                            text="Más opciones"
-                            />
+                        <card-grid color="accent" icon="mdi-more" text="Más opciones" />
                     </v-col>
                     <v-col cols="6">
-                        <card-grid
-                            color="success_card"
-                            icon="mdi mdi-cash-register"
-                            text="Cobrar venta"
-                            />
+                        <card-grid color="success_card" icon="mdi mdi-cash-register" text="Cobrar venta" />
                     </v-col>
                 </v-row>
             </v-col>
             <v-col cols="12" md="5" lg="4">
-                <card-info-sale/>
+                <card-info-sale />
             </v-col>
         </v-row>
     </div>
@@ -72,12 +60,16 @@
 import { VDataTable } from 'vuetify/labs/VDataTable';
 import CardGrid from './CardGrid/CardGrid.vue';
 import CardInfoSale from './CardGrid/CardInfoSale.vue';
+import ProductSelect from './Selects/ProductSelect.vue';
 
 export default {
+    mounted(){
+    },
     components: {
         VDataTable,
         CardGrid,
-        CardInfoSale
+        CardInfoSale,
+        ProductSelect
     },
     data: () => ({
         headers: [
@@ -90,7 +82,12 @@ export default {
             { title: 'Total', align: 'center', key: 'total' },
             { title: 'Acciones', align: 'center', key: 'status', sortable: false },
         ],
-    })
+    }),
+
+    methods:{
+
+    },
+    
 }
 </script>
 

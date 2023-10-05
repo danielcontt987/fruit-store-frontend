@@ -6,6 +6,8 @@ const state = {
     token: null,
     status: 0,
     userId: 0,
+    user: null,
+    server: "http://localhost:8080",
 };
 
 const types = {
@@ -13,6 +15,7 @@ const types = {
     SET_TOKEN: "SET_TOKEN",
     SET_USER_ID: "SET_USER_ID",
     SET_STATUS: "SET_STATUS",
+    SET_USER: "SET_USER"
 }
 
 const mutations = {
@@ -28,6 +31,9 @@ const mutations = {
     [types.SET_USER_ID](state, data) {
         state.userId = data;
     },
+    [types.SET_USER](state, data ){
+        state.user = data
+    }
 };
 
 const actions = {
@@ -44,6 +50,7 @@ const actions = {
                 commit(types.SET_TOKEN, res.data.token)
                 commit(types.SET_USER_ID, res.data.user.id)
                 commit(types.SET_STATUS, res.data.status)
+                commit(types.SET_USER, res.data.user)
                 resolve(res)
                 state.token = localStorage.setItem('token', token);
                 state.userId = localStorage.setItem('userId', userId);

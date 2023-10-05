@@ -33,7 +33,7 @@ const actions = {
     closeDialogButtons({ commit }) {
         commit(types.SET_SHOW_BUTTON, false);
     },
-    setDialogProgress({ commit }, params) {
+    setProgress({ commit }, params) {
         commit(types.SET_SHOW_PROGRESS, true);
         commit(types.SET_PARAMS, params);
     },

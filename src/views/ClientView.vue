@@ -1,13 +1,16 @@
 <template>
   <v-app class="bg-background">
     <admin-drawer>
-        <v-container>
-          <v-row>
-             <v-col cols="12">
-               <card-client :token="token" :userId="userId" :clients="clients" :listClient="listClient"/>
-             </v-col>
-          </v-row>
-        </v-container>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="12" lg="2" md="2" sm="2" xs="2" class="ml-3">
+            <back-button @backAction="$router.push('/admin')"></back-button>
+          </v-col>
+          <v-col cols="12">
+            <card-client :token="token" :userId="userId" :clients="clients" :listClient="listClient" />
+          </v-col>
+        </v-row>
+      </v-container>
     </admin-drawer>
   </v-app>
 </template>
@@ -16,14 +19,16 @@
 import { mapState } from 'vuex';
 import AdminDrawer from "@/components/AdminDrawer.vue";
 import CardClient from "@/components/CardClient.vue";
+import BackButton from '@/components/Buttons/BackButton.vue';
 
 export default {
-  name:"Client",
-  components:{
+  name: "Client",
+  components: {
     AdminDrawer,
     CardClient,
+    BackButton,
   },
-  mounted(){
+  mounted() {
     if (this.token == null) {
       this.$router.push({
         name: "Login",
@@ -39,19 +44,19 @@ export default {
     date: "",
     date2: "",
     itemsPerPage: 5,
-       
+
   }),
 
-  methods:{
-    listClient(){
+  methods: {
+    listClient() {
       let params = {
-          id: this.userId
+        id: this.userId
       }
       this.$store.dispatch('clients/listClient', params, this.token);
     },
   },
-  
-  computed:{
+
+  computed: {
     ...mapState({
       token: (state) => state.login.token,
       userId: (state) => state.login.userId,

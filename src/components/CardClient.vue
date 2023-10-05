@@ -14,8 +14,7 @@
             <v-row>
                 <v-col cols="12" class="mt-3">
                     <v-text-field
-                        :rules="nameRules"
-                        label="Nombre del cliente"
+                        label="Buscar"
                         variant="outlined"
                         v-model="search"
                     />
