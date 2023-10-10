@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const state = {
-    server: "http://localhost:8080",
+    server: "http://localhost:8000",
     loading: false,
     clients: [],
 };

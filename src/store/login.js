@@ -7,7 +7,7 @@ const state = {
     status: 0,
     userId: 0,
     user: null,
-    server: "http://localhost:8080",
+    server: "http://localhost:8000",
 };
 
 const types = {
@@ -28,24 +28,24 @@ const mutations = {
     [types.SET_STATUS](state, status) {
         state.status = status;
     },
-    [types.SET_USER_ID](state, data) {
-        state.userId = data;
+    [types.SET_USER_ID](state, user) {
+        state.userId = user;
     },
-    [types.SET_USER](state, data ){
-        state.user = data
+    [types.SET_USER](state, user ){
+        state.user = user
     }
 };
 
 const actions = {
     list({commit}){
-        axios.get("http://localhost:8080/user/list")
+        axios.get("http://localhost:8000/user/list")
         .then((res) => {
             commit(types.SET_LIST_DATA, res.data);
         })
     },
     loginUser({commit,state}, payload){
         return new Promise((resolve, reject) =>{
-            axios.post('http://localhost:8080/login', payload)
+            axios.post('http://localhost:8000/login', payload)
              .then((res) =>{
                 commit(types.SET_TOKEN, res.data.token)
                 commit(types.SET_USER_ID, res.data.user.id)
@@ -53,7 +53,8 @@ const actions = {
                 commit(types.SET_USER, res.data.user)
                 resolve(res)
                 state.token = localStorage.setItem('token', token);
-                state.userId = localStorage.setItem('userId', userId);
+                state.userId = localStorage.setItem('user', userId);
+                state.user = localStorage.setItem('user', user);
             }).catch((err) =>{
                 reject(err);
             })
@@ -67,6 +68,11 @@ const actions = {
     saveUserId({ commit }, userId) {
         commit(types.SET_USER_ID, userId);
     },
+
+    saveUser({ commit }, user) {
+        commit(types.SET_USER, user);
+    },
+
 }
 
 

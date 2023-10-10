@@ -96,8 +96,9 @@ export default {
 
                 const res = await this.$store.dispatch('login/loginUser', params);
 
-                localStorage.setItem('authToken', res.data.token);
-                localStorage.setItem('user', res.data.user);
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('user', JSON.stringify(res.data.user));
+                localStorage.setItem('userId', res.data.user.id);
                 await this.$router.push({
                     name: 'Admin'
                 });

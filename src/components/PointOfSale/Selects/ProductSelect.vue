@@ -1,18 +1,21 @@
 <template>
-    <v-autocomplete
-        flat
-        label="Productos"
-        variant="solo"
-        :items="products"
-        hide-selected
+    <v-autocomplete         
+        label="Artículo" 
+        variant="outlined" 
+        ariant="outlined" 
+        chips
+        closable-chips
+        clearable 
+        color="primary" 
+        v-model="product" 
+        :items="products" 
         item-title="name"
-        v-model="product"
-        clearable
+        @update:model-value="addToSalePurchase"
+        @keydown.enter="enterProduct"
         item-value="id"
-        :no-data-text="textProduct"
-        return-object
-    >
-    </v-autocomplete>
+        prepend-inner-icon="mdi-barcode" 
+        :no-data-text="textProduct" 
+        return-object />
 </template>
 
 <script>
@@ -25,26 +28,49 @@ export default {
     data: () => ({
         textProduct: "No hay productos",
         product: null,
+        search: ""
 
     }),
     methods: {
-        listMethods() {
-            this.listProducts();
+        updateSearch(event) {
+            this.search = event.target.value; // Actualizamos 'search' con el valor del campo de entrada
         },
         listProducts() {
             let params = {
                 token: this.token,
-                server: this.server
+                server: this.server,
+                search: this.productSearch,
             }
             this.$store.dispatch('pointsales/listProducts', params);
-        }
+        },
+        enterProduct(e) {
+            if (e.key === "Enter") {
+                console.log(this.productSearch);
+            }
+        },
+        consultProducts(){
+            
+        },
+        addToSalePurchase(){
+            if (this.product != null) {
+                let productToSale = null
+                productToSale =  JSON.parse(JSON.stringify(this.product));    
+                productToSale.qty = 1;
+                productToSale.total = 0;
+                productToSale.subtotal = 0;
+                this.$store.dispatch("pointsales/addToSalePurchase", productToSale);    
+            }
+        },
+        listMethods() {
+            this.listProducts();
+        },
     },
     computed: {
         ...mapState({
             token: (state) => state.login.token,
             products: (state) => state.pointsales.products,
             server: (state) => state.login.server,
-        })
+        }),
     }
 }
 </script>

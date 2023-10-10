@@ -4,6 +4,9 @@ import alerts from './alerts';
 import menu from './menu';
 import clients from './clients';
 import pointsales from './pointsales';
+import inputs from './inputs';
+import globals from './globals';
+
 
 
 export default createStore({
@@ -13,5 +16,7 @@ export default createStore({
     menu,
     clients,
     pointsales,
+    inputs,
+    globals
   }
 })

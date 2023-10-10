@@ -9,12 +9,14 @@ export default {
     this.delay(3000);
   },
   created() {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('token');
+    const userObj =   localStorage.getItem('user');
     const userId = localStorage.getItem('userId');
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       this.$store.dispatch('login/saveToken', token);
       this.$store.dispatch('login/saveUserId', userId);
+      this.$store.dispatch('login/saveUser', userObj);
     }
   },
   methods: {
