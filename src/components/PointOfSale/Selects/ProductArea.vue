@@ -5,7 +5,6 @@
     ariant="outlined" 
     chips
     closable-chips
-    clearable 
     color="primary" 
     v-model="area" 
     :items="areas" 
@@ -43,8 +42,19 @@ export default {
       };
       this.$store.dispatch("inputs/listArea", params);
     },
+    // listStock() {
+    //     
+    // },
     consultAreas() {
       this.$store.dispatch("inputs/setArea", JSON.parse(JSON.stringify(this.area)));
+      if (this.area.id != 0) {
+          let params = {
+              area_id: this.area.id,
+              token: this.token,
+              server: this.server
+          }
+          this.$store.dispatch("inputs/listStock", params);
+      }
     }
   },
   computed: {

@@ -14,10 +14,10 @@
         </v-row>
         <v-row>
             <v-col cols="6">
-                <product-inventory />
+                <product-area />
             </v-col>
             <v-col cols="6">
-                <product-area />
+                <product-inventory />
             </v-col>
             <v-col cols="4" class="py-0">
                 <v-select flat label="Clientes" variant="outlined" />
@@ -36,9 +36,16 @@
                          no-data-text="Aún no hay productos"
                          :hide-details="false">
                     <template v-slot:item.qty="{ item }">
-                        <v-text-field variant="outlined" prepend-inner-icon="mdi-menu-down" append-inner-icon="mdi-menu-up"
-                            v-model.number="item.raw.qty" min="1" @click:prepend-inner="minusQty(item)"
-                            @click:append-inner="moreAdd(item)" class="centered-input font-weight-bold" outlined />
+                        <v-text-field 
+                            variant="outlined" 
+                            prepend-inner-icon="mdi-menu-down" 
+                            append-inner-icon="mdi-menu-up"
+                            v-model.number="item.raw.qty" 
+                            min="1" 
+                            @click:prepend-inner="minusQty(item)"
+                            @click:append-inner="moreAdd(item)" 
+                            class="centered-input font-weight-bold" 
+                            outlined />
                     </template>
                     <template v-slot:item.unit_price="{ item }">
                         {{ '$' + item.raw.price_sale.toFixed(2) }}
