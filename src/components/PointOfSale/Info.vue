@@ -1,28 +1,19 @@
 <template>
     <div class="ml-4 mr-4">
         <v-row>
-            <v-col cols="6" class="text-left">
-                <h4 class="text-primary_dark">Nombre:</h4>
-                <h4 class="text-primary_dark">Caja:</h4>
-            </v-col>
-            <v-col cols="6" class="text-right">
-                <h4 class="text-primary_dark">Última venta:</h4>
-                <h4 class="text-primary_dark">Ventas del dia:</h4>
-                <h4 class="text-primary_dark">Ventas en espera:</h4>
-                <h4 class="text-primary_dark">Monto generado:</h4>
-            </v-col>
+            <information-point-of-sale/>
         </v-row>
         <v-row>
-            <v-col cols="6">
-                <product-area />
+            <v-col cols="12" lg="6" sm="6" class="pb-0">
+                <area-select />
             </v-col>
-            <v-col cols="6">
-                <product-inventory />
+            <v-col cols="12" lg="6" sm="6">
+                <inventory-select />
             </v-col>
-            <v-col cols="4" class="py-0">
-                <v-select flat label="Clientes" variant="outlined" />
+            <v-col cols="12" class="py-0" lg="4" sm="6">
+                <client-select />
             </v-col>
-            <v-col cols="8" class="py-0">
+            <v-col cols="12" class="py-0" lg="8" sm="6">
                 <product-select />
             </v-col>
         </v-row>
@@ -145,10 +136,12 @@ import { VDataTable } from 'vuetify/labs/VDataTable';
 import CardGrid from './CardGrid/CardGrid.vue';
 import CardInfoSale from './CardGrid/CardInfoSale.vue';
 import ProductSelect from './Selects/ProductSelect.vue';
-import ProductArea from './Selects/ProductArea.vue';
-import ProductInventory from './Selects/ProductInventory.vue';
+import AreaSelect from './Selects/AreaSelect.vue';
+import InventorySelect from './Selects/InventorySelect.vue';
 import AlertBottons from '../AlertBottons.vue';
 import VNotificationDialog from '../VNotificationDialog.vue';
+import InformationPointOfSale from './information/InformationPointOfSale.vue';
+import ClientSelect from './Selects/ClientSelect.vue';
 
 export default {
     mounted() {
@@ -156,15 +149,18 @@ export default {
     components: {
         //Selects
         ProductSelect,
-        ProductArea,
-        ProductInventory,
+        AreaSelect,
+        InventorySelect,
+        ClientSelect,
         //Datable
         VDataTable,
         //Cards
         CardGrid,
         CardInfoSale,
         AlertBottons,
-        VNotificationDialog
+        VNotificationDialog,
+        //Information
+        InformationPointOfSale,
     },
     data: () => ({
         page: 1,
@@ -311,17 +307,15 @@ export default {
             }, 0);
         },
         pagedSales() {
-        // Calcular los elementos a mostrar en la página actual
-        const startIndex = (this.page - 1) * this.itemsPerPage;
-        const endIndex = startIndex + this.itemsPerPage;
-        return this.sales.slice(startIndex, endIndex);
+            // Calcular los elementos a mostrar en la página actual
+            const startIndex = (this.page - 1) * this.itemsPerPage;
+            const endIndex = startIndex + this.itemsPerPage;
+            return this.sales.slice(startIndex, endIndex);
         },
         pageCount() {
-        // Calcular el número total de páginas
-        return Math.ceil(this.sales.length / this.itemsPerPage);
+            // Calcular el número total de páginas
+            return Math.ceil(this.sales.length / this.itemsPerPage);
         },
-
-
     }
 
 }
