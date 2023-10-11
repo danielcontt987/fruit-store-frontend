@@ -64,16 +64,16 @@
                             </template>
                         </v-tooltip>
                     </template>
-                    <template v-slot:bottom>
-                        <div class="text-center pt-2">
-                            <v-pagination
-                            v-model="page"
-                            :length="pageCount"
-                            ></v-pagination>
-                        </div>
-                        </template>
- 
                 </v-data-table>
+                <div class="text-center pt-2">
+                    <v-pagination
+                        elevation="3"
+                        v-model="page"
+                        :length="pageCount"
+                        size="small"
+                        color="primary"
+                    ></v-pagination>
+                </div>
             </v-col>
         </v-row>
         <v-row no-gutters class="py-2">
@@ -344,4 +344,22 @@ export default {
 .v-text-field .v-field__input {
     text-align: center;
 }
+
+.v-pagination__prev{
+    background-color: white;
+    border-radius: 9px;
+}
+.v-pagination__item{
+    background-color: white;
+    border-radius: 9px;
+}
+.v-pagination__next{
+    background-color: white;
+    border-radius: 9px;
+}
+
+span.v-btn__content{
+    font-weight: bold;
+}
+
 </style>
