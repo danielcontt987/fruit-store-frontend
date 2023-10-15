@@ -32,6 +32,11 @@ const routes = [
     name: 'Calculator',
     component: () => import('@/views/CalculatorView.vue'),
   },
+  {
+    path: '/:pathMatch(.*)',
+    name: 'Calculator',
+    component: () => import('../views/NotFound.vue'),
+  },
 ]
 
 const router = createRouter({
