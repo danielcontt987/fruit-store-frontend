@@ -6,7 +6,8 @@ import clients from './clients';
 import pointsales from './pointsales';
 import inputs from './inputs';
 import globals from './globals';
-
+import saleboxes from './saleboxes';
+import cashcuts from './cashcuts';
 
 
 export default createStore({
@@ -17,6 +18,8 @@ export default createStore({
     clients,
     pointsales,
     inputs,
-    globals
+    globals,
+    saleboxes,
+    cashcuts
   }
 })

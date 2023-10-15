@@ -4,14 +4,19 @@ const state = {
     products: [],
     sales: [],
     product: null,
+    status: 0,
+    loading: false
 };
 
 const types = {
     SET_PRODUCTS: "SET_PRODUCTS",
     SET_PRODUCT: "SET_PRODUCT",
+    SET_CASH_CUT: "SET_CASH_CUT",
+    SET_STATUS: "SET_STATUS",
+    SET_LOADING: "SET_LOADING",
     ADD_TO_SALE_PURCHASE: "ADD_TO_SALE_PURCHASE",
     DELETE_PRODUCT: "DELETE_PRODUCT",
-    CLEAR_SALE: "CLEAR_SALE"
+    CLEAR_SALE: "CLEAR_SALE",
 };
 
 const mutations = {
@@ -30,6 +35,12 @@ const mutations = {
     [types.CLEAR_SALE](state) {
         state.sales = [];
     },
+    [types.SET_STATUS](state, status) {
+        state.status = status;
+    },
+    [types.SET_LOADING](state, payload) {
+        state.loading = payload;
+    },
 }
 
 const actions = {
@@ -45,6 +56,28 @@ const actions = {
         }).catch((error) => {
             console.error(error);
         });
+    },
+    getSaleBox({commit}, payload){
+        commit(types.SET_LOADING, true);
+        return new Promise ((resolve, reject) => {
+            axios.get(payload.server + "/cashcut/get",{
+                params: {
+                    user_id: payload.user_id,
+                    salebox_id: payload.salebox_id,
+                },
+                headers: {
+                    Authorization: `${"Bearer"}${" "}${payload.token}`,
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "multipart/form-data",
+                },
+            }).then((res) => {
+                commit(types.SET_STATUS, res.data.cashcut);
+                commit(types.SET_LOADING, false);
+                resolve(res);
+            }).catch((error) =>{
+                reject(error)
+            })
+        })
     },
     addToSalePurchase({ commit }, payload) {
         commit(types.ADD_TO_SALE_PURCHASE, payload);

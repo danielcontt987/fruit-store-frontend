@@ -1,7 +1,7 @@
 <template>
     <div class="ml-4 mr-4">
         <v-row>
-            <information-point-of-sale/>
+            <information-point-of-sale />
         </v-row>
         <v-row>
             <v-col cols="12" lg="6" sm="6" class="pb-0">
@@ -74,9 +74,7 @@
                 </div>
             </v-col>
         </v-row>
-        <v-row no-gutters class="py-2">
-           
-        </v-row>
+        <v-row no-gutters class="py-2"> </v-row>
         <v-row class="mt-2">
             <v-col cols="12" md="7" lg="8">
                 <v-row>
@@ -96,6 +94,9 @@
             </v-col>
             <v-col cols="12" md="5" lg="4">
                 <card-info-sale :products-count="productsCount" :subtotal="subtotal" :iva="iva" :total="total" />
+            </v-col>
+            <v-col cols="12" style="overflow-y: hidden; !important">
+                <dialog-open-box />
             </v-col>
         </v-row>
         <AlertBottons>
@@ -127,6 +128,7 @@
                 </v-col>
             </v-row>
         </v-notification-dialog>
+        <!-- Dialog -->
     </div>
 </template>
 
@@ -142,6 +144,11 @@ import AlertBottons from '../AlertBottons.vue';
 import VNotificationDialog from '../VNotificationDialog.vue';
 import InformationPointOfSale from './information/InformationPointOfSale.vue';
 import ClientSelect from './Selects/ClientSelect.vue';
+
+
+//Dialogs
+import DialogOpenBox from './dialogs/DialogOpenBox.vue';
+
 
 export default {
     mounted() {
@@ -161,13 +168,17 @@ export default {
         VNotificationDialog,
         //Information
         InformationPointOfSale,
+        //
+        DialogOpenBox,
     },
     data: () => ({
+        salebox_id: 0,
         page: 1,
         itemsPerPage: 2,
         itemSelected: null,
         isLoading: false,
         cancel: false,
+        openDialogSaleBox: false,
         headers: [
             { title: 'Producto', align: 'center', key: 'name' },
             { title: 'Cantidad', align: 'center', key: 'qty' },
@@ -242,7 +253,6 @@ export default {
             // Manejar el cambio de página
             this.page = newPage;
         },
-
     },
 
     computed: {
@@ -250,6 +260,7 @@ export default {
             sales: (state) => state.pointsales.sales,
             with_iva: (state) => state.globals.with_iva,
             without_iva: (state) => state.globals.iva,
+            cashcut: (state) => state.cashcuts.cashcut,
         }),
 
         productsCount() {
@@ -321,7 +332,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
 .v-data-table-footer {
     display: none;
 }
@@ -342,7 +353,7 @@ export default {
     border-radius: 4px;
 }
 
-.v-text-field .v-field__input {
+.v-text-field .v-field__input .centered-input {
     text-align: center;
 }
 
