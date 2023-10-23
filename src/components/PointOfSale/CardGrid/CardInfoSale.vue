@@ -2,9 +2,9 @@
     <v-card color="primary" flat class="white--text py-6 px-4 my-0 rounded-lg" height="100%">
         <v-row align="center" justify="center">
             <v-col cols="4">
-                <p>Artículos</p>
+                <p>Cantidad de artículos</p>
                 <p>Subtotal</p>
-                <p>Descuento</p>
+                <p>Descuento directo</p>
                 <p>IVA (16%)</p>
                 <h2 class="font-weight-bold">Total</h2>
             </v-col>

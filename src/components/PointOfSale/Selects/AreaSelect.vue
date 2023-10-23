@@ -1,8 +1,7 @@
 <template>
   <v-select 
     label="Área" 
-    variant="outlined" 
-    ariant="outlined" 
+    variant="outlined"
     chips
     closable-chips
     color="primary" 

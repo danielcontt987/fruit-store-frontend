@@ -45,7 +45,7 @@ const actions = {
     },
     loginUser({commit,state}, payload){
         return new Promise((resolve, reject) =>{
-            axios.post('http://localhost:8000/login', payload)
+            axios.post(state.server+'/login', payload)
              .then((res) =>{
                 commit(types.SET_TOKEN, res.data.token)
                 commit(types.SET_USER_ID, res.data.user.id)

@@ -19,24 +19,12 @@
         </v-row>
         <v-row>
             <v-col cols="12">
-                <v-data-table 
-                         flat 
-                         :headers="headers" 
-                         :items="pagedSales"
-                         item-value="name" 
-                         no-data-text="Aún no hay productos"
-                         :hide-details="false">
+                <v-data-table flat :headers="headers" :items="pagedSales" item-value="name"
+                    no-data-text="Aún no hay productos" :hide-details="false">
                     <template v-slot:item.qty="{ item }">
-                        <v-text-field 
-                            variant="outlined" 
-                            prepend-inner-icon="mdi-menu-down" 
-                            append-inner-icon="mdi-menu-up"
-                            v-model.number="item.raw.qty" 
-                            min="1" 
-                            @click:prepend-inner="minusQty(item)"
-                            @click:append-inner="moreAdd(item)" 
-                            class="centered-input font-weight-bold" 
-                            outlined />
+                        <v-text-field variant="outlined" prepend-inner-icon="mdi-menu-down" append-inner-icon="mdi-menu-up"
+                            v-model.number="item.raw.qty" min="1" @click:prepend-inner="minusQty(item)"
+                            @click:append-inner="moreAdd(item)" class="centered-input font-weight-bold" outlined />
                     </template>
                     <template v-slot:item.unit_price="{ item }">
                         {{ '$' + item.raw.price_sale.toFixed(2) }}
@@ -64,13 +52,8 @@
                     </template>
                 </v-data-table>
                 <div class="text-center pt-2">
-                    <v-pagination
-                        elevation="3"
-                        v-model="page"
-                        :length="pageCount"
-                        size="small"
-                        color="primary"
-                    ></v-pagination>
+                    <v-pagination elevation="3" v-model="page" :length="pageCount" size="small"
+                        color="primary"></v-pagination>
                 </div>
             </v-col>
         </v-row>
@@ -88,7 +71,8 @@
                         <card-grid color="accent" icon="mdi-more" text="Más opciones" />
                     </v-col>
                     <v-col cols="6">
-                        <card-grid color="success_card" icon="mdi mdi-cash-register" text="Cobrar venta" />
+                        <card-grid color="success_card" icon="mdi mdi-cash-register" text="Cobrar venta"
+                            @click="openModal" />
                     </v-col>
                 </v-row>
             </v-col>
@@ -129,6 +113,25 @@
             </v-row>
         </v-notification-dialog>
         <!-- Dialog -->
+        <v-dialog fullscreen v-model="showModal">
+            <v-card>
+                <v-card-title class="bg-secondary_dark">
+                    <v-row class="mx-3 mt-0 mb-0">
+                        <v-col cols="6">
+                            <h5 class="text-left">
+                                Filtro de clientes
+                            </h5>
+                        </v-col>
+                        <v-col cols="6" class="text-right">
+                            <v-icon class="text-right" @click="closeModal()">mdi-close-circle</v-icon>
+                        </v-col>
+                    </v-row>
+                </v-card-title>
+                <v-card-text>
+                    
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -177,6 +180,7 @@ export default {
         itemsPerPage: 2,
         itemSelected: null,
         isLoading: false,
+        showModal: false,
         cancel: false,
         openDialogSaleBox: false,
         headers: [
@@ -192,6 +196,12 @@ export default {
     }),
 
     methods: {
+        openModal() {
+            this.showModal = true;
+        },
+        closeModal(){
+            this.showModal = false;
+        },
         minusQty(item) {
             item.raw.qty--;
         },
@@ -248,7 +258,6 @@ export default {
             this.$store.dispatch("alerts/closeDialogButtons");
             this.cancel = false;
         },
-
         updatePage(newPage) {
             // Manejar el cambio de página
             this.page = newPage;
@@ -346,32 +355,37 @@ export default {
     color: black;
     font-weight: 600;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .v-data-table {
     border-radius: 4px;
 }
 
-.v-text-field .v-field__input .centered-input {
-    text-align: center;
+.v-input__control{
+    height: 55px;
 }
 
-.v-pagination__prev{
-    background-color: white;
-    border-radius: 9px;
+.v-select__selection{
+    padding-top: 1px;
 }
-.v-pagination__item{
-    background-color: white;
-    border-radius: 9px;
-}
-.v-pagination__next{
+
+.v-pagination__prev {
     background-color: white;
     border-radius: 9px;
 }
 
-span.v-btn__content{
+.v-pagination__item {
+    background-color: white;
+    border-radius: 9px;
+}
+
+.v-pagination__next {
+    background-color: white;
+    border-radius: 9px;
+}
+
+span.v-btn__content {
     font-weight: bold;
 }
-
 </style>
