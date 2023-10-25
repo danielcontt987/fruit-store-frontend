@@ -32,7 +32,13 @@ export default {
   }),
   methods: {
     listArea() {
-      let user = JSON.parse(this.user);
+      let user = null;
+      if (typeof this.user === "string") {
+        user = JSON.parse(this.user);
+      }else{
+        user = this.user;
+      }
+     
       let params = {
         user_id: user.id,
         business_id: user.business_id,

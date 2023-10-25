@@ -4,12 +4,13 @@
             v-model="showDialog"
             persistent
             max-width="450"
+            class="mx-0"
             v-if="showDialog">
-            <v-card class="ma-0 notification-card"  style="overflow: hidden !important">
+            <v-card style="overflow: hidden !important; border-radius: 12px;">
                 <v-card-title class="text-center">
                     <v-row>
                         <v-col cols="12" class="text-center mb-2">
-                            <v-icon size="84" class=".animated-icon" :color="color">{{ icon }}</v-icon>
+                            <v-icon size="84" :color="color">{{ icon }}</v-icon>
                         </v-col>
                     </v-row>
                 </v-card-title>
@@ -80,37 +81,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-.notification-card {
-  animation: slideIn 0.3s ease-in-out;
-}
-
-@keyframes slideIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.animated-icon {
-  animation: drawCheck 1s ease-in-out forwards;
-  opacity: 0;
-}
-
-@keyframes drawCheck {
-  0% {
-    opacity: 0;
-    stroke-dasharray: 0, 100;
-    transform: scale(0);
-  }
-  100% {
-    opacity: 1;
-    stroke-dasharray: 100, 100;
-    transform: scale(1);
-  }
-}
-</style>

@@ -29,10 +29,10 @@
                     <template v-slot:item.unit_price="{ item }">
                         {{ '$' + item.raw.price_sale.toFixed(2) }}
                     </template>
-                    <template v-slot:item.stock="{ item }">
+                    <template v-slot:item.inventoryName="{ item }">
                         {{ item.raw.inventorydetail.inventory.name }}
                     </template>
-                    <template v-slot:item.area="{ item }">
+                    <template v-slot:item.area="{ item }">  
                         {{ item.raw.inventorydetail.inventory.area.name }}
                     </template>
                     <template v-slot:item.subtotal="{ item }">
@@ -58,7 +58,7 @@
             </v-col>
         </v-row>
         <v-row no-gutters class="py-2"> </v-row>
-        <v-row class="mt-2">
+        <v-row>
             <v-col cols="12" md="7" lg="8">
                 <v-row>
                     <v-col cols="6" class="pb-0">
@@ -92,12 +92,12 @@
                     </v-btn>
                 </v-col>
                 <v-col cols="12" md="6" class="text-center" order="1" order-md="2" v-if="cancel == true">
-                    <v-btn class="rounded-lg bg-fail" depressed block @click="cancelSale()" :loading="isLoading">
+                    <v-btn class="rounded-lg bg-fail font-weight-normal" depressed block @click="cancelSale()" :loading="isLoading">
                         Si, cancelar
                     </v-btn>
-                </v-col>
+                </v-col>    
                 <v-col cols="12" md="6" class="text-center" order="1" order-md="2" v-else>
-                    <v-btn class="rounded-lg bg-fail" depressed block @click="removeItem()" :loading="isLoading">
+                    <v-btn class="rounded-lg bg-fail font-weight-normal" depressed block @click="removeItem()" :loading="isLoading">
                         Si, eliminar
                     </v-btn>
                 </v-col>
@@ -106,7 +106,7 @@
         <v-notification-dialog>
             <v-row class="mx-0">
                 <v-col class="text-center">
-                    <v-btn class="rounded-lg" large depressed block color="primary text-white" @click="closeDialog()">
+                    <v-btn class="rounded-lg font-weight-normal" depressed block color="primary text-white" @click="closeDialog()">
                         Entendido
                     </v-btn>
                 </v-col>
@@ -186,7 +186,7 @@ export default {
         headers: [
             { title: 'Producto', align: 'center', key: 'name' },
             { title: 'Cantidad', align: 'center', key: 'qty' },
-            { title: 'Almacén', align: 'center', key: 'stock' },
+            { title: 'Almacén', align: 'center', key: 'inventoryName' },
             { title: 'Área', align: 'center', key: 'area' },
             { title: 'Precio unitario', align: 'center', key: 'unit_price' },
             { title: 'Subtotal', align: 'center', key: 'subtotal' },

@@ -85,11 +85,6 @@ export default {
     AdminDrawer,
   },
   mounted() {
-    if (this.token == null) {
-      this.$router.push({
-        name: "Login",
-      });
-    }
   },
   computed: {
     ...mapState({

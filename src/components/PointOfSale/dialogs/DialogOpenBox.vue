@@ -180,8 +180,6 @@ export default {
                     token: this.token,
                     salebox_id: this.salebox_id != 0 ? this.salebox_id : 0
                 }
-                console.log("asq");
-
                 this.$store.dispatch("pointsales/getSaleBox", params).then((res) => {
                     if (res.data.cashcut == null) {
                         this.listSalebox(params);

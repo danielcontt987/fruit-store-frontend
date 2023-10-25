@@ -6,7 +6,7 @@
             max-width="450"
             v-if="showDialogButton"
         >
-            <v-card class="ma-0" style="overflow: hidden !important;">
+            <v-card class="ma-0" style="overflow: hidden !important;border-radius: 12px;">
                 <v-card-title class="text-center">
                     <v-row>
                         <v-col cols="12" class="text-center mb-2">

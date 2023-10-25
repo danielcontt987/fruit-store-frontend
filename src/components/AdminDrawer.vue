@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app class="bg-primary" elevation="0">
-    <img src="../assets/img/verduras.png" width="30" height="30" alt="Logo" class="mx-4" />
+    <img @click="goToDashboard()" style="cursor: pointer;" src="../assets/img/verduras.png" width="30" height="30" alt="Logo" class="mx-4" />
     <v-toolbar-title><b>Fruteria del puerto</b></v-toolbar-title>
     <template v-slot:append>
       <v-btn shaped class="radius-botton">
@@ -127,6 +127,9 @@ export default {
     currentRoute() {
       // return this.$route.path; // Obtiene la ruta actual de Vue Router
     },
+    goToDashboard(){
+       this.$router.push("/admin")
+    }
   },
 };
 </script>
